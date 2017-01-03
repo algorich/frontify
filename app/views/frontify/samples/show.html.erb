@@ -1,0 +1,3 @@
+<%= content_for :page_title do @component.pretty_name end %>
+<%= content_for :sections do @component.navigation_section_html.html_safe end %>
+<%= @component.html.try(:html_safe) %>

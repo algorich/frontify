@@ -1,0 +1,19 @@
+stylesheet_extensions: ['css']
+javascript_extensions: ['js']
+# components:
+#   component_test_1:
+#     git: git@github.com:algorich/component-test-1.git
+#     version: 1
+#     external_resource: true
+#   component_test_2:
+#     git: git@github.com:algorich/component-test-2.git
+#     version: 1
+#     external_resource: true
+#   component_test_3:
+#     git: git@github.com:algorich/component-test-3.git
+#     version: 1
+#     external_resource: true
+#   component_test_4:
+#     git: git@github.com:algorich/component-test-4.git
+#     version: 1
+#     external_resource: true

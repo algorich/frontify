@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Frontify</title>
+
+  <%= stylesheet_link_tag    'frontify/application', media: 'all' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <!-- MAIN NAVIGATION BEGIN -->
+  <div class="alg-mainNavigation">
+    <header class="alg-mainNavigation-header">
+      <input type="text" placeholder="Search component..." class="alg-mainNavigation-search">
+    </header>
+    <nav class="alg-mainNavigation-items">
+      <%= link_to 'Índice', samples_path, title: 'Home', class: "alg-mainNavigation-item #{ params[:id] == nil ? 'is-active' : ''}" %>
+
+      <% Frontify::Component.all.each do |component| %>
+        <%= link_to component.pretty_name, sample_path(component.name), title: component.pretty_name, class: "alg-mainNavigation-item #{ params[:id] == component.name ? 'is-active' : ''}" %>
+      <% end %>
+    </nav>
+  </div>
+  <!-- MAIN NAVIGATION END -->
+
+  <!-- PAGE NEGIN -->
+  <div id="js-page" class="alg-page">
+    <div id="js-page-overlay" class="alg-page-overlay"></div>
+
+    <div class="alg-page-inner">
+      <header class="alg-page-header">
+        <div class="alg-page-toggle">
+          <input type="checkbox" id="js-mainNavigation-toggle">
+          <label for="js-mainNavigation-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </div>
+
+        <h1 title="<%= yield(:page_title) %>" class="alg-page-title"><%= yield(:page_title) %></h1>
+
+        <nav class="alg-page-navigation">
+          <%= yield(:sections) %>
+        </nav>
+      </header>
+
+      <!-- PAGE CONTENT BEGIN -->
+      <div class="alg-page-content">
+        <%= yield %>
+      </div>
+      <!-- PAGE CONTENT END -->
+    </div>
+  </div>
+  <!-- PAGE END -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <%= javascript_include_tag 'frontify/application' %>
+</body>
+</html>
