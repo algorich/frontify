@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.2.5.2"
   s.add_dependency 'safe_yaml', '~> 1.0'
   s.add_dependency 'redcarpet'
+  s.add_dependency 'pry-rails'
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "bundler", "~> 1.13"

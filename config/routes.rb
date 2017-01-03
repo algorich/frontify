@@ -1,3 +1,5 @@
 Frontify::Engine.routes.draw do
-  resources :samples, only: [:index, :show]
+  resources :components, only: [:index, :show] do
+    resources :samples, only: [:show], module: 'components'
+  end
 end

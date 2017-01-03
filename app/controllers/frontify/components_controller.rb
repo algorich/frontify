@@ -1,5 +1,5 @@
 module Frontify
-  class SamplesController < Frontify::ApplicationController
+  class ComponentsController < Frontify::ApplicationController
     def index
     end
 

@@ -16,10 +16,10 @@
       <input type="text" placeholder="Search component..." class="alg-mainNavigation-search">
     </header>
     <nav class="alg-mainNavigation-items">
-      <%= link_to 'Índice', samples_path, title: 'Home', class: "alg-mainNavigation-item #{ params[:id] == nil ? 'is-active' : ''}" %>
+      <%= link_to 'Índice', components_path, title: 'Home', class: "alg-mainNavigation-item #{ params[:id] == nil ? 'is-active' : ''}" %>
 
       <% Frontify::Component.all.each do |component| %>
-        <%= link_to component.pretty_name, sample_path(component.name), title: component.pretty_name, class: "alg-mainNavigation-item #{ params[:id] == component.name ? 'is-active' : ''}" %>
+        <%= link_to component.pretty_name, component_path(component.name), title: component.pretty_name, class: "alg-mainNavigation-item #{ params[:id] == component.name ? 'is-active' : ''}" %>
       <% end %>
     </nav>
   </div>

@@ -1,5 +1,6 @@
 require "frontify/engine"
 require 'redcarpet'
+require 'pry-rails'
 
 module Frontify
   class Component
@@ -54,6 +55,11 @@ module Frontify
       add_navigation_section
     end
 
+    def sample_by_name(sample_name)
+      path = Rails.root.join('vendor', 'frontify', 'components', name, 'doc', sample_name, 'sample.html')
+      File.exists?(path) ? File.open(path, 'r').read.to_s : ''
+    end
+
     private
 
     def add_navigation_section
@@ -68,8 +74,37 @@ module Frontify
       samples_path = Dir[base_path.to_s] - [readme_path.to_s]
 
       markdown_to_html(readme_path, markdown)
-      samples_path.sort.map { |path| "#{ path }/README.md" }.each do |path|
-        markdown_to_html(path, markdown)
+      samples_path.sort.each do |path|
+        _path = "#{ path }/README.md"
+        sample = path.split('/')[-1]
+        markdown_to_html(_path, markdown)
+        page_to_iframe(sample)
+      end
+    end
+
+    def page_to_iframe(sample)
+      path = Rails.root.join('vendor', 'frontify', 'components', name, 'doc', sample, 'sample.html')
+
+      if File.exists?(path)
+        content = [
+          "<div class='alg-viewport js-viewport'>",
+            "<nav class='alg-viewport-size'>",
+              "<a href='#' data-size='1440' class='alg-viewport-size-option'>Laptop L - 1440px</a>",
+              "<a href='#' data-size='1024' class='alg-viewport-size-option'>Laptop - 1024px</a>",
+              "<a href='#' data-size='768' class='alg-viewport-size-option'>Tablet - 768px</a>",
+              "<a href='#' data-size='425' class='alg-viewport-size-option'>Mobile L - 425px</a>",
+              "<a href='#' data-size='375' class='alg-viewport-size-option'>Mobile M - 375px</a>",
+              "<a href='#' data-size='320' class='alg-viewport-size-option is-active'>Mobile S - 320px</a>",
+            "</nav>",
+            "<div class='alg-viewport-content'>",
+              "<textarea class='alg-viewport-resize' disabled></textarea>",
+              "<div class='alg-viewport-content-inner js-viewport-content'>",
+                "<iframe src='#{ Frontify::Engine.routes.url_helpers.component_sample_path(name, sample) }'></iframe>",
+              "</div>",
+            "</div>",
+          "</div>"
+        ].join('')
+        @html << content
       end
     end
 

@@ -1,5 +1,4 @@
 require 'safe_yaml'
-require 'pry-rails'
 
 module Frontify
   class ExceptionConfiguration < StandardError; end
