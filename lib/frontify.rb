@@ -70,7 +70,7 @@ module Frontify
     def build_html
       base_path    = Rails.root.join('vendor', 'frontify', 'components', name, 'doc', '*')
       readme_path  = Rails.root.join('vendor', 'frontify', 'components', name, 'doc', 'README.md')
-      markdown     = Redcarpet::Markdown.new(Frontify::Component::CustomRender, { component: self })
+      markdown     = Redcarpet::Markdown.new(Frontify::Component::CustomRender, { component: self, tables: true, fenced_code_blocks: true })
       samples_path = Dir[base_path.to_s] - [readme_path.to_s]
 
       markdown_to_html(readme_path, markdown)
