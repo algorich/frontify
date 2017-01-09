@@ -12,26 +12,53 @@
 //
 //= require_tree .
 
-$(function () {
-  $('#js-mainNavigation-toggle').on('change', function () {
-    $('#js-page').toggleClass('is-compact');
-  })
-});
+(function() {
+    function toogleClass(ele, klass) {
+      ele.classList.toggle(klass);
+    }
 
-$(function () {
-  $('#js-page-overlay').on('click', function () {
-    console.log('ok');
-    $('#js-page').removeClass('is-compact');
-  });
-});
+    function openOrCloseNavigation () {
+      var page = document.querySelector('#js-page');
+      toogleClass(page, 'is-compact');
+    }
 
-$(function () {
-  $('.js-viewport *[data-size]').on('click', function () {
-    var $content = $(this).parents('.js-viewport').find('.js-viewport-content');
+   var element = document.querySelector('#js-mainNavigation-toggle');
 
-    if ($content.attr('data-size') != $(this).attr('data-size'))
-      $content.attr('data-size', $(this).attr('data-size'));
-    else
-      $content.attr('data-size', '');
-  });
-})
+   element.addEventListener("change", openOrCloseNavigation);
+})();
+
+(function() {
+  function filterItems(){
+    var searchValue = serchInputField.value.toLowerCase()
+
+    for (var i = 0; i < serchItems.length; i++) {
+      var item = serchItems[i];
+      var lowerText = item.attributes['data-search-text'].value.toLowerCase();
+
+      if(lowerText.startsWith(searchValue)) {
+        item.classList.remove('is-hidden');
+      } else {
+        item.classList.add('is-hidden');
+      }
+    }
+  }
+
+  var navigationSelector = document.querySelector('.alg-mainNavigation');
+  var serchInputField    = navigationSelector.querySelector('[data-search-field]');
+  var serchItems         = navigationSelector.querySelectorAll('[data-search-item]');
+
+  serchInputField.addEventListener('keyup', filterItems);
+})();
+
+(function() {
+  function changeViewport(elem){
+    var viewport = elem.target.parentNode.parentNode;
+    var viewportContent = viewport.querySelector('.js-viewport-content');
+    viewportContent.setAttribute('data-viewport-size', elem.target.value)
+  }
+
+  var resizer = document.querySelectorAll('[data-view-port-resize]')
+  for (var i = 0; i < resizer.length; i++) {
+    resizer[i].addEventListener('change', changeViewport);
+  }
+})();

@@ -450,3 +450,31 @@ a:hover, a:focus {
   width: 100%;
   height: 100%;
 }
+
+.is-hidden {
+  display: none;
+}
+
+[data-viewport-size="mobile-s"] {
+  width: 320px;
+}
+
+[data-viewport-size="mobile-m"] {
+  width: 375px;
+}
+
+[data-viewport-size="mobile-l"] {
+  width: 425px;
+}
+
+[data-viewport-size="tablet"] {
+  width: 768px;
+}
+
+[data-viewport-size="laptop"] {
+  width: 1024px;
+}
+
+[data-viewport-size="laptop-l"] {
+  width: 1440px;
+}

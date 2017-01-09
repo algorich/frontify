@@ -14,7 +14,7 @@ module Frontify
         component = @options[:component]
 
         if header_level == 1
-          component.increment_navigation_section
+          component.add_navigation_section(text)
           %(<h1><a name="section-#{ component.navigation_section_count }">#{ text }</a></h1>)
         else
           %(<h#{ header_level }>#{ text }</h#{ header_level }>)
@@ -50,9 +50,9 @@ module Frontify
       build_html
     end
 
-    def increment_navigation_section
+    def add_navigation_section(text)
       self.navigation_section_count += 1
-      add_navigation_section
+      add_navigation_section_html(text)
     end
 
     def sample_by_name(sample_name)
@@ -62,9 +62,9 @@ module Frontify
 
     private
 
-    def add_navigation_section
+    def add_navigation_section_html(text)
       klass = self.navigation_section_count == 1 ? 'is-active' : ''
-      self.navigation_section_html += "<a href='#section-#{ self.navigation_section_count }' class='alg-page-section #{ klass }'>Seção #{ self.navigation_section_count }</a>"
+      self.navigation_section_html += "<a href='#section-#{ self.navigation_section_count }' class='alg-page-section #{ klass }'>#{ text }</a>"
     end
 
     def build_html
@@ -89,12 +89,15 @@ module Frontify
         content = [
           "<div class='alg-viewport js-viewport'>",
             "<nav class='alg-viewport-size'>",
-              "<a href='#' data-size='1440' class='alg-viewport-size-option'>Laptop L - 1440px</a>",
-              "<a href='#' data-size='1024' class='alg-viewport-size-option'>Laptop - 1024px</a>",
-              "<a href='#' data-size='768' class='alg-viewport-size-option'>Tablet - 768px</a>",
-              "<a href='#' data-size='425' class='alg-viewport-size-option'>Mobile L - 425px</a>",
-              "<a href='#' data-size='375' class='alg-viewport-size-option'>Mobile M - 375px</a>",
-              "<a href='#' data-size='320' class='alg-viewport-size-option is-active'>Mobile S - 320px</a>",
+              "<select data-view-port-resize>",
+                "<option value="">Selecione uma opção</option>",
+                "<option value='laptop-l' class='alg-viewport-size-option'>Laptop L - 1440px</option>",
+                "<option value='laptop' class='alg-viewport-size-option'>Laptop - 1024px</option>",
+                "<option value='tablet' class='alg-viewport-size-option'>Tablet - 768px</option>",
+                "<option value='mobile-l' class='alg-viewport-size-option'>Mobile L - 425px</option>",
+                "<option value='mobile-m' class='alg-viewport-size-option'>Mobile M - 375px</option>",
+                "<option value='mobile-s' class='alg-viewport-size-option is-active'>Mobile S - 320px</option>",
+              "</select>",
             "</nav>",
             "<div class='alg-viewport-content'>",
               "<textarea class='alg-viewport-resize' disabled></textarea>",
