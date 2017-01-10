@@ -19,7 +19,7 @@
       <%= link_to 'Índice', components_path, title: 'Home', class: "alg-mainNavigation-item #{ params[:id] == nil ? 'is-active' : ''}" %>
 
       <% Frontify::Component.all.each do |component| %>
-        <%= link_to component.pretty_name, component_path(component.name), title: component.pretty_name, class: "alg-mainNavigation-item #{ params[:id] == component.name ? 'is-active' : ''}", data: { search_item: '', search_text: component.pretty_name } %>
+        <%= link_to component.pretty_name, component_path(component.name), title: component.pretty_name, class: "alg-mainNavigation-item #{ params[:id] == component.name ? 'is-active' : ''}", data: { search_item: '', search_text: component.pretty_name, assync_request: true } %>
       <% end %>
     </nav>
   </div>
@@ -40,15 +40,15 @@
           </label>
         </div>
 
-        <h1 title="<%= yield(:page_title) %>" class="alg-page-title"><%= yield(:page_title) %></h1>
+        <h1 title="<%= yield(:page_title) %>" class="alg-page-title" data-component='page-title'><%= yield(:page_title) %></h1>
 
-        <nav class="alg-page-navigation">
+        <nav class="alg-page-navigation" data-component='page-navigation'>
           <%= yield(:sections) %>
         </nav>
       </header>
 
       <!-- PAGE CONTENT BEGIN -->
-      <div class="alg-page-content">
+      <div class="alg-page-content" data-component='content'>
         <%= yield %>
       </div>
       <!-- PAGE CONTENT END -->

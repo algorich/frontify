@@ -63,8 +63,7 @@ module Frontify
     private
 
     def add_navigation_section_html(text)
-      klass = self.navigation_section_count == 1 ? 'is-active' : ''
-      self.navigation_section_html += "<a href='#section-#{ self.navigation_section_count }' class='alg-page-section #{ klass }'>#{ text }</a>"
+      self.navigation_section_html += "<a href='#section-#{ self.navigation_section_count }' class='alg-page-section'>#{ text }</a>"
     end
 
     def build_html
