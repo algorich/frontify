@@ -1,1 +1,14 @@
 <%= content_for :page_title do 'Índice' end %>
+
+<ul>
+  <% Frontify::Component.all.each do |component| %>
+    <li>
+      <%= link_to component_path(component.name), title: component.pretty_name do %>
+        <% if component.image.present? %>
+          <%= image_tag "data:image/jpeg;base64,#{ component.image }" %>
+        <% end %>
+        <%= component.pretty_name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

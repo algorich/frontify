@@ -1,11 +1,12 @@
 require "frontify/engine"
 require 'redcarpet'
+require 'base64'
 require 'pry-rails'
 
 module Frontify
   class Component
     cattr_accessor :components, :section_count, :sections_html
-    attr_accessor :name, :html, :navigation_section_count, :navigation_section_html
+    attr_accessor :name, :html, :navigation_section_count, :navigation_section_html, :image
 
     @@components = []
 
@@ -37,6 +38,7 @@ module Frontify
     def initialize(args)
       self.name = args[:name]
       self.html = ''
+      self.image = ''
       self.navigation_section_html = ''
       self.navigation_section_count = 0
       self.build_data
@@ -48,6 +50,7 @@ module Frontify
 
     def build_data
       build_html
+      set_image
     end
 
     def add_navigation_section(text)
@@ -61,6 +64,20 @@ module Frontify
     end
 
     private
+
+    def set_image
+      base_path    = Rails.root.join('vendor', 'frontify', 'components', name)
+      extensions = %w(svg png jpg jpeg gif)
+
+      extensions.each do |extension|
+        path = base_path.join("sample.#{ extension }").to_s
+
+        if File.exists?(path)
+          self.image = Base64.encode64(File.open(path, "rb").read)
+          break
+        end
+      end
+    end
 
     def add_navigation_section_html(text)
       self.navigation_section_html += "<a href='#section-#{ self.navigation_section_count }' class='alg-page-section'>#{ text }</a>"

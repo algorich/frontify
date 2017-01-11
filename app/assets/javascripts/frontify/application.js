@@ -94,8 +94,11 @@
   function activeNavigation(elem) {
     var target = elem.target;
     var viewPosition = target.offsetTop + parseInt(target.scrollTop) + 32
-    var navigationItems = document.querySelectorAll('[data-component="page-navigation"] a');
+    var navigation = document.querySelector('[data-component="page-navigation"]')
+    var navigationItems = navigation.querySelectorAll('a');
     var titles = document.querySelectorAll('.alg-page-content h1')
+    var navigationWidth = navigation.clientWidth
+    var currentView = navigationWidth + navigation.scrollLeft
     var currentPosition = 0
 
     clearNavigation(navigationItems);
@@ -106,15 +109,29 @@
       }
     }
 
-    if(navigationItems[currentPosition] !== undefined) {
-      navigationItems[currentPosition].classList.add('is-active');
+    currentNavItem = navigationItems[currentPosition]
+
+    if(currentNavItem !== undefined) {
+      currentNavItem.classList.add('is-active');
+    }
+
+    var navWidth = navigation.clientWidth;
+    var visibleNavStart = navigation.scrollLeft;
+    var visibleNavEnd = visibleNavStart + navWidth;
+    var startItemPosition = currentNavItem.offsetLeft
+    var endItemPosition = startItemPosition + currentNavItem.clientWidth
+
+    if(startItemPosition <= visibleNavStart) {
+      navigation.scrollLeft = startItemPosition;
+    } else {
+      if(endItemPosition >= visibleNavEnd)
+      navigation.scrollLeft = endItemPosition - navWidth;
     }
   }
 
   var content = document.querySelector('[data-component="content"]');
   content.addEventListener("scroll", activeNavigation);
 })();
-
 
 
 // Viewport
