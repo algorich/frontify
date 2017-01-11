@@ -13,14 +13,16 @@
   <!-- MAIN NAVIGATION BEGIN -->
   <div class="alg-mainNavigation">
     <header class="alg-mainNavigation-header">
-      <input type="text" placeholder="Search component..." class="alg-mainNavigation-search" data-search-field>
+      <input type="text" placeholder="Search component..." class="alg-mainNavigation-search" data-component="search" data-search-target="menu-item">
     </header>
     <nav class="alg-mainNavigation-items">
       <%= link_to 'Índice', components_path, title: 'Home', class: "alg-mainNavigation-item #{ params[:id] == nil ? 'is-active' : ''}" %>
 
-      <% Frontify::Component.all.each do |component| %>
-        <%= link_to component.pretty_name, component_path(component.name), title: component.pretty_name, class: "alg-mainNavigation-item #{ params[:id] == component.name ? 'is-active' : ''}", data: { search_item: '', search_text: component.pretty_name, assync_request: true } %>
-      <% end %>
+      <div data-search-wrapper="menu-item">
+        <% Frontify::Component.all.each do |component| %>
+          <%= link_to component.pretty_name, component_path(component.name), title: component.pretty_name, class: "alg-mainNavigation-item #{ params[:id] == component.name ? 'is-active' : ''}", data: { search_text: component.pretty_name, assync_request: true } %>
+        <% end %>
+      </div>
     </nav>
   </div>
   <!-- MAIN NAVIGATION END -->

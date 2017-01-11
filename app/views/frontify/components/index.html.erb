@@ -1,8 +1,9 @@
 <%= content_for :page_title do 'Índice' end %>
+<input type="text" placeholder="Search component..." data-component="search" data-search-target="home-components">
 
-<ul>
+<ul data-search-wrapper="menu-item">
   <% Frontify::Component.all.each do |component| %>
-    <li>
+    <li data-search-text="<%= component.pretty_name %>">
       <%= link_to component_path(component.name), title: component.pretty_name do %>
         <% if component.image.present? %>
           <%= image_tag "data:image/jpeg;base64,#{ component.image }" %>

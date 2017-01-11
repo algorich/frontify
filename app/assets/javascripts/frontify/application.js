@@ -31,29 +31,6 @@
    element.addEventListener("change", openOrCloseNavigation);
 })();
 
-(function() {
-  function filterItems(){
-    var searchValue = serchInputField.value.toLowerCase()
-
-    for (var i = 0; i < serchItems.length; i++) {
-      var item = serchItems[i];
-      var lowerText = item.attributes['data-search-text'].value.toLowerCase();
-
-      if(lowerText.includes(searchValue)) {
-        item.classList.remove('is-hidden');
-      } else {
-        item.classList.add('is-hidden');
-      }
-    }
-  }
-
-  var navigationSelector = document.querySelector('.alg-mainNavigation');
-  var serchInputField    = navigationSelector.querySelector('[data-search-field]');
-  var serchItems         = navigationSelector.querySelectorAll('[data-search-item]');
-
-  serchInputField.addEventListener('keyup', filterItems);
-})();
-
 (function(){
   function pushStateSlider(url) {
     history.pushState({ urlPath: url }, "", url)
@@ -155,3 +132,41 @@ window.onpopstate = function(e){
     return e
   }
 }
+
+(function() {
+  function searchItems(e){
+    var searchValue = e.target.value.toLowerCase();
+    var target = e.target.attributes['data-search-target'];
+
+    if(target !== undefined) {
+      var wrappers = document.querySelectorAll('[data-search-wrapper="' + target.value + '"]')
+
+      for (var i = 0; i < wrappers.length; i++) {
+        var wrapper = wrappers[i];
+
+        var searchItems = wrapper.querySelectorAll('[data-search-text]')
+
+        for (var j = 0; j < searchItems.length; j++) {
+          var item = searchItems[j];
+          var lowerText = item.attributes['data-search-text'].value.toLowerCase();
+
+          if(lowerText.includes(searchValue)) {
+            item.classList.remove('is-hidden');
+          } else {
+            item.classList.add('is-hidden');
+          }
+        }
+      }
+    }
+
+  }
+
+  var searchInputs = document.querySelectorAll('[data-component="search"]');
+  for (var i = 0; i < searchInputs.length; i++) {
+    searchInputs[i].addEventListener('keyup', searchItems);
+  }
+})();
+
+
+
+
