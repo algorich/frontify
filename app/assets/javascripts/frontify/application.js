@@ -117,22 +117,6 @@
 })();
 
 
-// Viewport
-(function() {
-  function changeViewport(elem){
-    var viewport = elem.target.parentNode.parentNode;
-    var viewportContent = viewport.querySelector('.js-viewport-content');
-
-    viewportContent.setAttribute('data-viewport-size', elem.target.value);
-  }
-
-  var resizer = document.querySelectorAll('[data-viewport-resize]');
-
-  for (var i = 0; i < resizer.length; i ++) {
-    resizer[i].addEventListener('change', changeViewport);
-  }
-})();
-
 window.onpopstate = function (e) {
   if(e.state !== undefined && e.state !== null) {
     e.state.urlPath;
@@ -175,3 +159,22 @@ window.onpopstate = function (e) {
   }
 })();
 
+// Sidebar
+
+(function() {
+  function activeSideMenuItem (e) {
+    var items = e.target.parentNode.parentNode.querySelectorAll('[data-component="side-menu-item"]');
+
+    for (var i = 0; i < items.length; i ++) {
+      items[i].classList.remove('is-active');
+    }
+
+    e.target.classList.add('is-active');
+  }
+
+  var sideMenuItems = document.querySelectorAll('[data-component="side-menu-item"]');
+
+  for (var i = 0; i < sideMenuItems.length; i ++) {
+    sideMenuItems[i].addEventListener('click', activeSideMenuItem);
+  }
+})();

@@ -11,16 +11,17 @@
 </head>
 <body>
   <!-- MAIN NAVIGATION BEGIN -->
-  <div class="alg-mainNavigation">
+  <div class="alg-mainNavigation" data-component="side-menu">
     <header class="alg-mainNavigation-header">
       <input type="text" placeholder="Search component..." class="alg-mainNavigation-search" data-component="search" data-search-target="menu-item">
     </header>
     <nav class="alg-mainNavigation-items">
-      <%= link_to 'Índice', components_path, title: 'Home', class: "alg-mainNavigation-item #{ params[:id] == nil ? 'is-active' : ''}" %>
+      <%= link_to 'Índice', components_path, title: 'Home', class: "alg-mainNavigation-item #{ params[:id] == nil ? 'is-active' : ''}",
+        data: { component: "side-menu-item" } %>
 
       <div data-search-wrapper="menu-item">
         <% Frontify::Component.all.each do |component| %>
-          <%= link_to component.pretty_name, component_path(component.name), title: component.pretty_name, class: "alg-mainNavigation-item #{ params[:id] == component.name ? 'is-active' : ''}", data: { search_text: component.pretty_name, assync_request: true } %>
+          <%= link_to component.pretty_name, component_path(component.name), title: component.pretty_name, class: "alg-mainNavigation-item #{ params[:id] == component.name ? 'is-active' : ''}", data: { search_text: component.pretty_name, assync_request: true, component: "side-menu-item" } %>
         <% end %>
       </div>
     </nav>
@@ -58,7 +59,6 @@
   </div>
   <!-- PAGE END -->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <%= javascript_include_tag 'frontify/application' %>
 </body>
 </html>
