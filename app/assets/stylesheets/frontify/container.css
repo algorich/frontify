@@ -1,0 +1,9 @@
+/*
+** Container
+*/
+
+.alg-container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 800px;
+}

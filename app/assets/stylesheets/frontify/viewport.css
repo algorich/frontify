@@ -1,0 +1,115 @@
+/*
+** Viewport
+*/
+
+.alg-viewport {
+  margin: 30px 0;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+@media only screen and (min-width: 768px) {
+  .alg-viewport {
+    margin: 30px 15px;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+  }
+}
+
+/* Size */
+
+.alg-viewport-size {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.alg-viewport-size-select {
+  margin: 0 auto;
+  display: block;
+  border: 0;
+  background: transparent;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  font-size: 1rem;
+  color: #444;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  max-width: 800px;
+}
+
+/* Content */
+
+.alg-viewport-content,
+.alg-viewport-resize {
+  min-height: 400px;
+  background: #fafafa;
+}
+
+.alg-viewport-content {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+
+.alg-viewport-resize {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border: 0;
+}
+
+.alg-viewport-content-inner {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: calc(100% - 10px);
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Sizes */
+
+.alg-viewport-content-inner[data-viewport-size="laptop-l"] > iframe {
+  max-width: 1440px;
+}
+
+.alg-viewport-content-inner[data-viewport-size="laptop"] > iframe {
+  max-width: 1024px;
+}
+
+.alg-viewport-content-inner[data-viewport-size="tablet"] > iframe {
+  max-width: 768px;
+}
+
+.alg-viewport-content-inner[data-viewport-size="mobile-l"] > iframe {
+  max-width: 425px;
+}
+
+.alg-viewport-content-inner[data-viewport-size="mobile-m"] > iframe {
+  max-width: 375px;
+}
+
+.alg-viewport-content-inner[data-viewport-size="mobile-s"] > iframe {
+  max-width: 320px;
+}
+
+/* Iframe */
+
+.alg-viewport-content-inner > iframe {
+  display: block;
+  margin: auto;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  box-shadow: 0 0 0 1px #e5e5e5;
+}
+
+.is-hidden {
+  display: none;
+}
+

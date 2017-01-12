@@ -105,14 +105,14 @@ module Frontify
         content = [
           "<div class='alg-viewport js-viewport'>",
             "<nav class='alg-viewport-size'>",
-              "<select data-view-port-resize>",
-                "<option value="">Selecione uma opção</option>",
-                "<option value='laptop-l' class='alg-viewport-size-option'>Laptop L - 1440px</option>",
-                "<option value='laptop' class='alg-viewport-size-option'>Laptop - 1024px</option>",
-                "<option value='tablet' class='alg-viewport-size-option'>Tablet - 768px</option>",
-                "<option value='mobile-l' class='alg-viewport-size-option'>Mobile L - 425px</option>",
-                "<option value='mobile-m' class='alg-viewport-size-option'>Mobile M - 375px</option>",
-                "<option value='mobile-s' class='alg-viewport-size-option is-active'>Mobile S - 320px</option>",
+              "<select class='alg-viewport-size-select' data-viewport-resize>",
+                "<option value=''>Select screen size</option>",
+                "<option value='laptop-l'>Laptop L - 1440px</option>",
+                "<option value='laptop'>Laptop - 1024px</option>",
+                "<option value='tablet'>Tablet - 768px</option>",
+                "<option value='mobile-l'>Mobile L - 425px</option>",
+                "<option value='mobile-m'>Mobile M - 375px</option>",
+                "<option value='mobile-s'>Mobile S - 320px</option>",
               "</select>",
             "</nav>",
             "<div class='alg-viewport-content'>",
@@ -130,7 +130,7 @@ module Frontify
     def markdown_to_html(path, markdown)
       if File.exists? path
         read_file = File.open(path, 'r').read.to_s
-        content   = "<section class='alg-container'>" + markdown.render(read_file) + '</section>'
+        content   = "<section class='alg-container markdown-body'>" + markdown.render(read_file) + '</section>'
         @html << content
       end
     end

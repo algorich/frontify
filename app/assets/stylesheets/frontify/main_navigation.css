@@ -1,0 +1,56 @@
+/*
+** Main navigation & Page
+*/
+
+.alg-mainNavigation,
+.alg-page {
+  position: fixed;
+  top: 0;
+  height: 100%;
+}
+
+/*
+** Main navigation
+*/
+
+.alg-mainNavigation {
+  left: 0;
+  width: 300px;
+  background: #fff;
+}
+
+.alg-mainNavigation-header {
+  height: 42px;
+}
+
+.alg-mainNavigation-items {
+  height: calc(100% - 42px);
+  overflow-y: auto;
+}
+
+.alg-mainNavigation-item,
+.alg-mainNavigation-search {
+  display: block;
+  padding: 10px;
+}
+
+.alg-mainNavigation-search {
+  border: 0;
+  width: 100%;
+  background: transparent;
+}
+
+.alg-mainNavigation-item {
+  transition: background-color 0.2s ease;
+  font-weight: 300;
+}
+
+.alg-mainNavigation-item:hover {
+  text-decoration: none;
+}
+
+.alg-mainNavigation-item.is-active,
+.alg-mainNavigation-item:hover,
+.alg-mainNavigation-item:focus {
+  background: #f9f9f9;
+}
