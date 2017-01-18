@@ -49,6 +49,7 @@
 /* Header */
 
 .alg-page-header {
+  position: relative;
   background: #f9f9f9;
 }
 
@@ -61,6 +62,7 @@
   width: 42px;
   height: 42px;
   cursor: pointer;
+  z-index: 4;
 }
 
 .alg-page-toggle > label,

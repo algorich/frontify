@@ -17,9 +17,9 @@
     </header>
 
     <nav class="alg-mainNavigation-items">
-      <%= link_to 'Index',
+      <%= link_to 'Índice',
         components_path,
-        title: 'Index',
+        title: 'Home',
         class: "alg-mainNavigation-item #{ params[:id] == nil ? 'is-active' : ''}",
         data: { component: "side-menu-item" } %>
 
@@ -47,12 +47,16 @@
           </label>
         </div>
 
-        <h1 title="<%= yield(:page_title) %>" class="alg-page-title" data-component="page-title">
-          <%= yield(:page_title) %>
-        </h1>
+        <% if yield(:page_title) %>
+          <h1 title="<%= yield(:page_title) %>" class="alg-page-title" data-component="page-title">
+            <%= yield :page_title %>
+          </h1>
+        <% end %>
+
+        <%= yield :search_block %>
 
         <nav class="alg-page-navigation" data-component="page-navigation">
-          <%= yield(:sections) %>
+          <%= yield :sections %>
         </nav>
       </header>
 

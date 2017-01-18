@@ -1,8 +1,8 @@
-<%= content_for :page_title do '' end %>
-
-<div class="alg-container">
-
+<%= content_for :search_block do %>
   <input type="text" placeholder="Search component..." class="alg-searchBlock" data-component="search" data-search-target="home-components">
+<% end %>
+
+<div class="alg-container alg-container--fluid">
 
   <ul data-search-wrapper="menu-item" class="alg-grid">
     <% Frontify::Component.all.each do |component| %>
