@@ -15,7 +15,7 @@
   z-index: 3;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1028px) {
   .alg-searchBlock {
     left: 50%;
     margin-left: calc(700px / -2);

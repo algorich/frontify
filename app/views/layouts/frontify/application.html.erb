@@ -47,13 +47,10 @@
           </label>
         </div>
 
-        <% if yield(:page_title) %>
-          <h1 title="<%= yield(:page_title) %>" class="alg-page-title" data-component="page-title">
-            <%= yield :page_title %>
-          </h1>
-        <% end %>
-
-        <%= yield :search_block %>
+        <h1 title="<%= yield(:page_title) %>" class="alg-page-title" data-component="page-title">
+          <%= yield :page_title %>
+          <%= yield :search_block %>
+        </h1>
 
         <nav class="alg-page-navigation" data-component="page-navigation">
           <%= yield :sections %>
