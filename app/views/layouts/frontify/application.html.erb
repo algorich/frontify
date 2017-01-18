@@ -15,8 +15,12 @@
     <header class="alg-mainNavigation-header">
       <input type="text" placeholder="Search component..." class="alg-mainNavigation-search" data-component="search" data-search-target="menu-item">
     </header>
+
     <nav class="alg-mainNavigation-items">
-      <%= link_to 'Índice', components_path, title: 'Home', class: "alg-mainNavigation-item #{ params[:id] == nil ? 'is-active' : ''}",
+      <%= link_to 'Índice',
+        components_path,
+        title: 'Home',
+        class: "alg-mainNavigation-item #{ params[:id] == nil ? 'is-active' : ''}",
         data: { component: "side-menu-item" } %>
 
       <div data-search-wrapper="menu-item">
@@ -43,15 +47,17 @@
           </label>
         </div>
 
-        <h1 title="<%= yield(:page_title) %>" class="alg-page-title" data-component='page-title'><%= yield(:page_title) %></h1>
+        <h1 title="<%= yield(:page_title) %>" class="alg-page-title" data-component="page-title">
+          <%= yield(:page_title) %>
+        </h1>
 
-        <nav class="alg-page-navigation" data-component='page-navigation'>
+        <nav class="alg-page-navigation" data-component="page-navigation">
           <%= yield(:sections) %>
         </nav>
       </header>
 
       <!-- PAGE CONTENT BEGIN -->
-      <div class="alg-page-content" data-component='content'>
+      <div class="alg-page-content" data-component="content">
         <%= yield %>
       </div>
       <!-- PAGE CONTENT END -->

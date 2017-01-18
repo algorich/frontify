@@ -1,15 +1,23 @@
-<%= content_for :page_title do 'Índice' end %>
-<input type="text" placeholder="Search component..." data-component="search" data-search-target="home-components">
+<%= content_for :page_title do '' end %>
 
-<ul data-search-wrapper="menu-item">
-  <% Frontify::Component.all.each do |component| %>
-    <li data-search-text="<%= component.pretty_name %>">
-      <%= link_to component_path(component.name), title: component.pretty_name do %>
-        <% if component.image.present? %>
-          <%= image_tag "data:image/jpeg;base64,#{ component.image }" %>
+<div class="alg-container">
+
+  <input type="text" placeholder="Search component..." class="alg-searchBlock" data-component="search" data-search-target="home-components">
+
+  <ul data-search-wrapper="menu-item" class="alg-grid">
+    <% Frontify::Component.all.each do |component| %>
+      <li data-search-text="<%= component.pretty_name %>" class="alg-grid-item">
+        <%= link_to component_path(component.name), title: component.pretty_name, class: 'alg-card' do %>
+          <% if component.image.present? %>
+            <%= image_tag "data:image/jpeg;base64,#{ component.image }", class: 'alg-card-bg' %>
+          <% else %>
+            <span class="alg-card-bg"><%= component.pretty_name[0] %></span>
+          <% end %>
+
+          <h2 class="alg-card-title"><%= component.pretty_name %></h2>
         <% end %>
-        <%= component.pretty_name %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+      </li>
+    <% end %>
+  </ul>
+
+</div>

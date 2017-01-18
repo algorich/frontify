@@ -8,3 +8,100 @@
 **= require frontify/viewport
 **= require_self
 */
+
+.alg-searchBlock {
+  margin: 30px 0;
+  display: block;
+  padding: 15px;
+  border: 0;
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+}
+
+.alg-card {
+  position: relative;
+  display: block;
+  background: linear-gradient(135deg, #3656a0 0%,#4078c0 100%);
+  height: 0px;
+  padding-bottom: 150%;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.alg-card:hover,
+.alg-card:focus {
+  margin: -5px 0 5px 0;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2), 0 5px 5px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.alg-card:hover .alg-card-title,
+.alg-card:focus .alg-card-title {
+  color: #fff;
+}
+
+.alg-card,
+.alg-card-title {
+  transition: all 0.2s ease;
+}
+
+.alg-card-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 300;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (min-width: 768px) {
+  .alg-card-title {
+    font-size: 1.2rem;
+  }
+}
+
+.alg-card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+  object-fit: cover;
+  font-size: 6rem;
+  color: rgba(255, 255, 255, 0.1);
+  line-height: 100%;
+  font-weight: 100;
+  text-indent: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+  .alg-card-bg {
+    font-size: 10rem;
+  }
+}
+
+.alg-grid {
+  margin: -15px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.alg-grid-item {
+  padding: 15px;
+  width: calc(100% / 2);
+}
+
+@media only screen and (min-width: 768px) {
+  .alg-grid-item {
+    width: calc(100% / 3);
+  }
+}

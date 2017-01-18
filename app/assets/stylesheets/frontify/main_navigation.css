@@ -45,7 +45,8 @@
   font-weight: 300;
 }
 
-.alg-mainNavigation-item:hover {
+.alg-mainNavigation-item:hover,
+.alg-mainNavigation-item:focus {
   text-decoration: none;
 }
 

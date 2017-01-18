@@ -132,5 +132,7 @@
 /* Content */
 
 .alg-page-content {
+  padding-bottom: 30px;
   overflow-y: auto;
+  flex-grow: 1;
 }
