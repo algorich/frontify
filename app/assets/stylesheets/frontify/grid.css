@@ -1,0 +1,21 @@
+/*
+** Grid
+*/
+
+.alg-grid {
+  margin: -15px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.alg-grid-item {
+  padding: 15px;
+  width: calc(100% / 2);
+}
+
+@media only screen and (min-width: 768px) {
+  .alg-grid-item {
+    width: calc(100% / 3);
+  }
+}
