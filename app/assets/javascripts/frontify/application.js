@@ -15,20 +15,20 @@
 
 
 // Navigation
+function toogleClass(ele, klass) {
+  ele.classList.toggle(klass);
+}
 
 (function() {
-    function toogleClass(ele, klass) {
-      ele.classList.toggle(klass);
-    }
-
     function openOrCloseNavigation () {
       var page = document.querySelector('#js-page');
       toogleClass(page, 'is-compact');
     }
 
    var element = document.querySelector('#js-mainNavigation-toggle');
-
+   var overlayElement = document.querySelector('.js-page-overlay');
    element.addEventListener("change", openOrCloseNavigation);
+   overlayElement.addEventListener("click", openOrCloseNavigation);
 })();
 
 (function(){
@@ -48,6 +48,9 @@
 
     loader.onreadystatechange = function() {
       if ((loader.status == 200) && (loader.readyState == 4)) {
+        if(window.screen.width < 768){
+          toogleClass(document.querySelector('#js-page'), 'is-compact');
+        }
         eval(loader.responseText);
         pushStateSlider(elem.target.href);
       }

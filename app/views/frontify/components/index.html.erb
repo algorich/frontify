@@ -4,7 +4,7 @@
 
 <div class="alg-container alg-container--fluid">
 
-  <ul data-search-wrapper="menu-item" class="alg-grid">
+  <ul data-search-wrapper="home-components" class="alg-grid">
     <% Frontify::Component.all.each do |component| %>
       <li data-search-text="<%= component.pretty_name %>" class="alg-grid-item">
         <%= link_to component_path(component.name), title: component.pretty_name, class: 'alg-card' do %>

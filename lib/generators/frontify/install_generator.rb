@@ -38,6 +38,11 @@ module Frontify
     def create_components_assets
       FileUtils.mkdir_p(BASE_PATH) unless File.exists?(BASE_PATH)
       FileUtils.mkdir_p(BASE_COMPONENTS_PATH) unless File.exists?(BASE_COMPONENTS_PATH)
+
+      Dir["#{ BASE_PATH }/*"].select { |e| File.file?(e) }.each do |path|
+        FileUtils.rm(path)
+      end
+
       puts "\033[1;32m create \033[0m#{ stylesheet_file_path }\n"
       File.new(stylesheet_file_path, 'w')
       puts "\033[1;32m create \033[0m#{ js_file_path }\n"
