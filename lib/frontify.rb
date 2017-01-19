@@ -4,7 +4,10 @@ require 'base64'
 require 'pry-rails'
 
 module Frontify
+  class ExceptionConfiguration < StandardError; end
+
   class Component
+
     cattr_accessor :components, :section_count, :sections_html
     attr_accessor :name, :html, :navigation_section_count, :navigation_section_html, :image
 
@@ -24,9 +27,18 @@ module Frontify
     end
 
     def self.all
-      components_path = Rails.root.join('vendor', 'frontify', 'components', '*')
-      component_names  = Dir[components_path.to_s].map { |item| item.split('components/')[-1] }.sort
-      component_names.each { |name| @@components << Frontify::Component.new(name: name) unless @@components.map(&:name).include? name }
+      configuration_file = read_configuration_file
+      components_path    = Rails.root.join('vendor', 'frontify', 'components')
+      components         = configuration_file['components']
+      raise Frontify::ExceptionConfiguration, "components not found" unless components.present?
+
+      components.each do |name, value|
+        path = components_path.join(name).to_s
+        if File.exists?(path)
+          @@components << Frontify::Component.new(name: name) unless @@components.map(&:name).include? name
+        end
+      end
+
       @@components
     end
 
@@ -59,11 +71,16 @@ module Frontify
     end
 
     def sample_by_name(sample_name)
-      path = Rails.root.join('vendor', 'frontify', 'components', name, 'doc', sample_name, 'sample.html')
+      path = Rails.root.join('vendor', 'frontify', 'components', name, 'doc', "#{ sample_name }.html")
       File.exists?(path) ? File.open(path, 'r').read.to_s : ''
     end
 
     private
+
+    def self.read_configuration_file
+      config_path = Rails.root.join('config', 'frontify.yml')
+      YAML.load(config_path.read)
+    end
 
     def set_image
       base_path    = Rails.root.join('vendor', 'frontify', 'components', name)
@@ -84,25 +101,23 @@ module Frontify
     end
 
     def build_html
-      base_path    = Rails.root.join('vendor', 'frontify', 'components', name, 'doc', '*')
       readme_path  = Rails.root.join('vendor', 'frontify', 'components', name, 'doc', 'README.md')
       markdown     = Redcarpet::Markdown.new(Frontify::Component::CustomRender, { component: self, tables: true, fenced_code_blocks: true })
-      samples_path = Dir[base_path.to_s] - [readme_path.to_s]
+      # samples_path = Dir[base_path.to_s] - [readme_path.to_s]
 
       markdown_to_html(readme_path, markdown)
-      samples_path.sort.each do |path|
-        _path = "#{ path }/README.md"
-        sample = path.split('/')[-1]
-        markdown_to_html(_path, markdown)
+      samples = @html.scan(/<p><frontify-sample>(.*?)<\/frontify-sample><\/p>/).flatten.uniq
+      samples.each do |sample|
         page_to_iframe(sample)
       end
     end
 
     def page_to_iframe(sample)
-      path = Rails.root.join('vendor', 'frontify', 'components', name, 'doc', sample, 'sample.html')
+      path = Rails.root.join('vendor', 'frontify', 'components', name, 'doc', "#{ sample }.html")
 
       if File.exists?(path)
         content = [
+          "</section>",
           "<div class='alg-viewport js-viewport'>",
             "<nav class='alg-viewport-size'>",
               "<select class='alg-viewport-size-select' data-viewport-resize>",
@@ -121,9 +136,10 @@ module Frontify
                 "<iframe src='#{ Frontify::Engine.routes.url_helpers.component_sample_path(name, sample) }'></iframe>",
               "</div>",
             "</div>",
-          "</div>"
+          "</div>",
+          "<section class='alg-container'>"
         ].join('')
-        @html << content
+        @html.gsub!("<p><frontify-sample>#{sample}</frontify-sample></p>", content)
       end
     end
 
